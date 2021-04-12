@@ -1,7 +1,7 @@
 # Team Profile Generator
 ## Description
 
-The team profile generator is a command-line application that prompts users for their team members and information and creates an HTML file which displays this information. This includes names, email addresses, GitHub profiles, employee IDs, and office locations. After entering the team managers information, users are prompted to provide different information for engineers and interns on the team. Below is a list of require info for each individual.
+The team profile generator is a command-line application that prompts users for their team members and information and creates an HTML file which displays this information. This includes names, email addresses, GitHub profiles, employee IDs, and office locations. After entering the team managers information, users are prompted to provide different information for engineers and interns on the team. Below is a list of required inputs for each team member category.
 ### Manager
 - Name
 - ID
