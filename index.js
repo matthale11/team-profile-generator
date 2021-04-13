@@ -52,7 +52,7 @@ function runApp() {
           response.office
         );
         teamArray.push(manager);
-        // TODO: Execute after managers, engineers, and interns are added
+        // TODO: Execute function after ALL managers, engineers, and interns are added
         buildTeam();
       });
   }
