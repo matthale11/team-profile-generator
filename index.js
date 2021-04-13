@@ -2,6 +2,8 @@ const path = require("path");
 const fs = require("fs");
 const inquirer = require("inquirer");
 const Manager = require("./lib/manager");
+const Engineer = require("./lib/engineer");
+const Intern = require("./lib/intern");
 const render = require("./src/template");
 
 // pageTemplate(answers_from_inquirer_prompts);
@@ -13,63 +15,166 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 // Create an empty array to hold team members outside of inquirer
 const teamArray = [];
 
-function runApp() {
-  function addManager() {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "mgrName",
-          message: "What is the team manager's name?",
-        },
-        {
-          type: "input",
-          name: "mgrId",
-          message: "What is the manager's employee ID?",
-        },
-        {
-          type: "input",
-          name: "mgrEmail",
-          message: "What is the manager's email address?",
-        },
-        {
-          type: "input",
-          name: "office",
-          message: "What is the manager's office number?",
-        },
-        {
-          type: "list",
-          name: "role",
-          choices: ["Engineer", "Intern"],
-          message: "Please select engineer or intern",
-        },
-      ])
-      .then((response) => {
-        const manager = new Manager(
-          response.mgrName,
-          response.mgrId,
-          response.mgrEmail,
-          response.office
-        );
-        teamArray.push(manager);
-        // TODO: Execute function after ALL managers, engineers, and interns are added
-        buildTeam();
-      });
+function buildTeam() {
+  // Create an output directory if the output path doesn't exist
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR);
   }
-  // function addEngineer() {
-
-  // }
-  // function addIntern() {
-
-  // }
-
-  function buildTeam() {
-    // Create an output directory if the output path doesn't exist
-    if (!fs.existsSync(OUTPUT_DIR)) {
-      fs.mkdirSync(OUTPUT_DIR);
-    }
-    fs.writeFileSync(outputPath, render(teamArray), "utf-8");
-  }
+  fs.writeFileSync(outputPath, render(teamArray), "utf-8");
 }
 
-runApp();
+function addManager() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is the team manager's name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is the manager's employee ID?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the manager's email address?",
+      },
+      {
+        type: "input",
+        name: "office",
+        message: "What is the manager's office number?",
+      },
+      {
+        type: "list",
+        name: "next",
+        choices: ["Engineer", "Intern"],
+        message: "Add engineer or add intern?",
+      },
+    ])
+    .then((response) => {
+      const manager = new Manager(
+        response.name,
+        response.id,
+        response.email,
+        response.office
+      );
+      teamArray.push(manager);
+      switch (response.next) {
+        case "Engineer":
+          addEngineer();
+          break;
+        case "Intern":
+          addIntern();
+          break;
+      }
+    });
+}
+
+function addEngineer() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is the engineer's name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is the engineer's employee ID?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the engineer's email address?",
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "What is the engineer's GitHub username?",
+      },
+      {
+        type: "list",
+        name: "next",
+        choices: ["Engineer", "Intern", "Done"],
+        message: "Add engineer, add intern, or done?",
+      },
+    ])
+    .then((response) => {
+      const engineer = new Engineer(
+        response.name,
+        response.id,
+        response.email,
+        response.github
+      );
+      teamArray.push(engineer);
+      switch (response.next) {
+        case "Engineer":
+          addEngineer();
+          break;
+        case "Intern":
+          addIntern();
+          break;
+        case "Done":
+          buildTeam();
+          break;
+      }
+    });
+}
+
+function addIntern() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is the intern's name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is the intern's employee ID?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is the intern's email address?",
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "What is the intern's school?",
+      },
+      {
+        type: "list",
+        name: "next",
+        choices: ["Engineer", "Intern", "Done"],
+        message: "Add engineer, add intern, or done?",
+      },
+    ])
+    .then((response) => {
+      const intern = new Intern(
+        response.name,
+        response.id,
+        response.email,
+        response.school
+      );
+      teamArray.push(intern);
+      switch (response.next) {
+        case "Engineer":
+          addEngineer();
+          break;
+        case "Intern":
+          addIntern();
+          break;
+        case "Done":
+          buildTeam();
+          break;
+      }
+    });
+}
+
+// Call the addManager function to initiate the application
+addManager();
