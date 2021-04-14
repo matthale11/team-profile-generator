@@ -1,7 +1,7 @@
 const inquirer = require("inquirer");
-const Manager = require("./lib/manager");
-const Engineer = require("./lib/engineer");
-const Intern = require("./lib/intern");
+const Manager = require("./lib/manager.js");
+const Engineer = require("./lib/engineer.js");
+const Intern = require("./lib/intern.js");
 const fs = require("fs");
 const path = require("path");
 const render = require("./src/template.js");
@@ -112,6 +112,7 @@ function addEngineer() {
           addIntern();
           break;
         case "Done":
+          console.log(teamArray);
           buildTeam();
           break;
       }
@@ -165,6 +166,7 @@ function addIntern() {
           addIntern();
           break;
         case "Done":
+          console.log(teamArray);
           buildTeam();
           break;
       }

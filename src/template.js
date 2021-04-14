@@ -1,34 +1,34 @@
 const generateTeam = (team) => {
   const generateManager = (manager) => {
-    `<div class="card m-3">
+    return `<div class="card m-3">
     <h3 class="bg-primary text-light p-3">${manager.getName()}</h3>
     <div class="card-body">
       <h4 class="card-title">Manager</h4>
-      <h6 class="card-subtitle">Employee ID</h6>
-      <p class='card-text'>Office #</p>
-      <a class="card-link" href="mailto:mhale@factharbor.com">Email</a>
+      <h6 class="card-subtitle">id</h6>
+      <p class='card-text'>office</p>
+      <a class="card-link" href="mailto:email">Email</a>
     </div>
   </div>`;
   };
   const generateEngineer = (engineer) => {
-    `<div class="card m-3">
+    return `<div class="card m-3">
     <h3 class="bg-primary text-light p-3">${engineer.getName()}</h3>
     <div class="card-body">
       <h4 class="card-title">Engineer</h4>
-      <h6 class="card-subtitle">Employee ID</h6>
-      <a class="card-link" href="mailto:mhale@factharbor.com">Email</a>
-      <a class='card-link' href='https://github.com/matthale11' target='_blank'>GitHub</a>
+      <h6 class="card-subtitle">id</h6>
+      <a class="card-link" href="mailto:email">Email</a>
+      <a class='card-link' href='https://github.com/profile' target='_blank'>GitHub</a>
     </div>
   </div>`;
   };
   const generateIntern = (intern) => {
-    `<div class="card m-3">
+    return `<div class="card m-3">
     <h3 class="bg-primary text-light p-3">${intern.getName()}</h3>
     <div class="card-body">
       <h4 class="card-title">Intern</h4>
-      <h6 class="card-subtitle">Employee ID</h6>
-      <p class='card-text'>School</p>
-      <a class="card-link" href="mailto:mhale@factharbor.com">Email</a>
+      <h6 class="card-subtitle">id</h6>
+      <p class='card-text'>scholl</p>
+      <a class="card-link" href="mailto:email">Email</a>
     </div>
   </div>`;
   };
@@ -38,6 +38,7 @@ const generateTeam = (team) => {
       .filter((employee) => employee.getRole() === "Manager")
       .map((manager) => generateManager(manager))
   );
+  console.log(html);
   html.push(
     team
       .filter((employee) => employee.getRole() === "Engineer")
