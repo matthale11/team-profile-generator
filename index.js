@@ -112,7 +112,6 @@ function addEngineer() {
           addIntern();
           break;
         case "Done":
-          console.log(teamArray);
           buildTeam();
           break;
       }
@@ -166,7 +165,6 @@ function addIntern() {
           addIntern();
           break;
         case "Done":
-          console.log(teamArray);
           buildTeam();
           break;
       }

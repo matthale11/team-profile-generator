@@ -42,7 +42,6 @@ const generateTeam = (team) => {
       .filter((employee) => employee.getRole() === "Manager")
       .map((manager) => generateManager(manager))
   );
-  console.log(html);
   html.push(
     team
       .filter((employee) => employee.getRole() === "Engineer")
