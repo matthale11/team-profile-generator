@@ -1,10 +1,10 @@
-const path = require("path");
-const fs = require("fs");
 const inquirer = require("inquirer");
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
-const render = require("./src/template");
+const fs = require("fs");
+const path = require("path");
+const render = require("./src/template.js");
 
 // pageTemplate(answers_from_inquirer_prompts);
 
@@ -14,14 +14,6 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 // Create an empty array to hold team members outside of inquirer
 const teamArray = [];
-
-function buildTeam() {
-  // Create an output directory if the output path doesn't exist
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR);
-  }
-  fs.writeFileSync(outputPath, render(teamArray), "utf-8");
-}
 
 function addManager() {
   inquirer
@@ -60,6 +52,7 @@ function addManager() {
         response.email,
         response.office
       );
+      // Add manager to array and run addEngineer or addIntern function based on selection
       teamArray.push(manager);
       switch (response.next) {
         case "Engineer":
@@ -109,6 +102,7 @@ function addEngineer() {
         response.email,
         response.github
       );
+      // Add engineer to array and run addEngineer, addIntern, or buildTeam function based on selection
       teamArray.push(engineer);
       switch (response.next) {
         case "Engineer":
@@ -161,6 +155,7 @@ function addIntern() {
         response.email,
         response.school
       );
+      // Add intern to array and run addEngineer, addIntern, or buildTeam function based on selection
       teamArray.push(intern);
       switch (response.next) {
         case "Engineer":
@@ -174,6 +169,14 @@ function addIntern() {
           break;
       }
     });
+}
+
+function buildTeam() {
+  // Create an output directory if the output path doesn't exist
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR);
+  }
+  fs.writeFileSync(outputPath, render(teamArray), "utf-8");
 }
 
 // Call the addManager function to initiate the application
