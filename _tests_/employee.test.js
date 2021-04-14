@@ -1,4 +1,4 @@
-const Employee = require('../lib/employee');
+const Employee = require('../lib/employee.js');
 
 describe("Tests to see if employee class exists", () => {
     it('should be an object', () => {
