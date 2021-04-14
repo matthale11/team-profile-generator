@@ -1,38 +1,42 @@
 const generateTeam = (team) => {
+  // Generate html card for manager
   const generateManager = (manager) => {
     return `<div class="card m-3">
-    <h3 class="bg-primary text-light p-3">${manager.getName()}</h3>
+    <h3 class="bg-primary text-light p-3">${manager.name}</h3>
     <div class="card-body">
       <h4 class="card-title">Manager</h4>
-      <h6 class="card-subtitle">id</h6>
-      <p class='card-text'>office</p>
-      <a class="card-link" href="mailto:email">Email</a>
+      <h6 class="card-subtitle">${manager.id}</h6>
+      <p class='card-text'>${manager.office}</p>
+      <a class="card-link" href="mailto:${manager.email}">Email</a>
     </div>
   </div>`;
   };
+  // Generate html card for engineers
   const generateEngineer = (engineer) => {
     return `<div class="card m-3">
-    <h3 class="bg-primary text-light p-3">${engineer.getName()}</h3>
+    <h3 class="bg-primary text-light p-3">${engineer.name}</h3>
     <div class="card-body">
       <h4 class="card-title">Engineer</h4>
-      <h6 class="card-subtitle">id</h6>
-      <a class="card-link" href="mailto:email">Email</a>
-      <a class='card-link' href='https://github.com/profile' target='_blank'>GitHub</a>
+      <h6 class="card-subtitle">${engineer.id}</h6>
+      <a class="card-link" href="mailto:${engineer.email}">Email</a>
+      <a class='card-link' href='https://github.com/${engineer.github}' target='_blank'>GitHub</a>
     </div>
   </div>`;
   };
+  // Generate html card for interns
   const generateIntern = (intern) => {
     return `<div class="card m-3">
-    <h3 class="bg-primary text-light p-3">${intern.getName()}</h3>
+    <h3 class="bg-primary text-light p-3">${intern.name}</h3>
     <div class="card-body">
       <h4 class="card-title">Intern</h4>
-      <h6 class="card-subtitle">id</h6>
-      <p class='card-text'>scholl</p>
-      <a class="card-link" href="mailto:email">Email</a>
+      <h6 class="card-subtitle">${intern.id}</h6>
+      <p class='card-text'>${intern.school}</p>
+      <a class="card-link" href="mailto:${intern.email}">Email</a>
     </div>
   </div>`;
   };
   const html = [];
+  // For managers, engineers, and interns; filter for those values in array and create a new array
   html.push(
     team
       .filter((employee) => employee.getRole() === "Manager")
@@ -52,8 +56,7 @@ const generateTeam = (team) => {
   return html.join("");
 };
 
-// Export an anonymous function (see class example) rather than an object
-// Use template literals to pass in object values
+// Export an anonymous function to be used by index.js
 module.exports = (team) => {
   return `
     <!DOCTYPE html>
